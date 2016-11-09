@@ -1,7 +1,6 @@
 ---
-title: "Frame38 Blog"
-author: "David G."
-date: "November 4, 2016"
+title: "Frame 38 Blog Home"
+author: "David Gabbé"
 output: html_document
 ---
 
@@ -9,22 +8,37 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+### Welcome
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+This site is an experiment building a static site with [Rmarkdown](http://rmarkdown.rstudio.com/rmarkdown_websites.html).  My old web 
+site with all the photographs is still [around](http://www.frame38.com).
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+I'm not a blogger per se, but I decided to give back to the community as other people's blogs
+were and are tremenously helpful towards enabling my progress.  And before
+going any further, my posts tend to be around the R ecosystem.
 
-```{r cars}
-summary(cars)
-```
+### Why Rmarkdown For a Blog?
 
-## Including Plots
+My intial plan was to post articles on LinkedIn, but those articles may not 
+include HTML code and there's no way to generate anywhere near as nicely formatted 
+R code or even generate sections with R code.
 
-You can also embed plots, for example:
+WordPress seems like overkill for my needs and I didn't want the sysadmin hassles.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+Github will host static sites for free and has a huge benefit.  I can publish my
+package documentation automatically using
+[`pkgdown`](https://github.com/hadley/pkgdown#pkgdown) directly to this website by
+setting *Github Pages* to `Source - master branch/docs folder` under project 
+settings.
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+### Why is a Package Website a Big Deal?
+
+An R package is only useful if people use it.  People will only use it if they
+can **easily** check it out, but developers only want to write the
+documentation once. As part of building your package, R help files are genereated from your Roxygen comments.  And finally `pkgdown` translates the R help files
+into a website.  Now you can browse a website to learn the details of a
+package.  Awesome!
+
+### More Questions?
+
+Try the [FAQ](faq.html).

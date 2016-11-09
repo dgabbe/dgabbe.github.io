@@ -1,0 +1,23 @@
+---
+title: "FAQ"
+output:
+  html_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Wow, you really did have more questions.  Short answer is I'm having a bakeoff 
+between Rmarkdown and Jekyll for building a static HTML site.
+
+Why no HTTPS connection?  
+  ~ Because Github Pages does not offer an HTTPS connection
+if you use a custom domain.  I figure this will get solved when browsers force secure 
+connections or I can migrate to Gitlab or Amazon S3.
+
+Jekyll vs Rmarkdown:
+  ~ Coming soon...
+  
+Github vs Amazon S3 hosting:
+  ~ Coming soon...

@@ -1,0 +1,233 @@
+---
+title: "OS X Configuration Notes"
+Date: Updated on 2016-05-18
+output:
+  html_document:
+    toc: true
+---
+
+Notes on turning my Mac into a serious developer's machine.  This odyssey started with OS X 10.10.4 and continues today covering OS X 10.11.6.  
+
+### System Differences
+My system is different in ways that will turn out to be significant:
+
+* My user account is a *standard* account, not an *adminstrator* account
+* My umask is set to 0066
+* My development folder is on a second hard drive
+* My file and folder permissions have ACLs
+
+### Desired Development Environment
+
+_pick up revisions here...  The rest is a work in progress._
+
+### <a name="customize">Customizing Your R Environment</a>
+
+My best practice is to keep config files under source control and have an easy process to keep each Mac up-to-date with any config file changes.  I do this by creating symlinks from R's file names to the actual files in my git working directory.
+
+First, if you have not installed Apple's XCode tools, or have done a major OS X upgrade:
+
+```sh
+xcode-select --install
+```
+
+If your R environment isn't what you thought it should be, use [`R.home`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Rhome.html) to verify the path to the various pieces of R.
+
+I like to jump into a new technology and with R, I was hooked on ggplot2.  At some point you need to step back understand some of the console error or warning messages that scrolled by. I've written up some of my lessons learned in [this section](#lessonsLearned)
+
+I'm in the process of documenting how I created the rest of my R setup.  It's a work in progress which gets updated a few times a week.
+
+###Summary
+
+My first R setup was done by downloading XQuartz, R, and RStudio as Mac binaries and installing them in the order listed.  I call this the seminar setup.  As an aside, there is an online environment (at the time is was www.compileonline.com), http://www.tutorialspoint.com/r_terminal_online.php, if you don't want to install anything.
+
+My second R setup, to take advantage of the RStudio-git integration, was done mainly by following these instructions - http://burnedpixel.com/blog/beginners-setup-guide-for-ruby-node-git-github-on-your-mac/ and stopping before installing Ruby.
+
+MacTeX was installed for PDF file generation.  And that's when I found that homebrew, really ruby, stopped working because of a character encoding setting.
+
+Since my Rproject.site wasn't being found either, it was time to figure things with a more structured approach.
+
+### <a name"desiredConfig">Desired Configuration</a>
+#### Tools
+* git respository: [github](http://github.com) (free public repos) and [gitlab](http://gitlab.com) (free private repos)
+* Visual git browser: [SourceTree](https://www.sourcetreeapp.com/) (free) or [Tower](http://www.git-tower.com) (paid)
+* R IDE: [RStudio](http://rstudio.com)
+* PDF generation: [MacTex](http://www.tug.org/mactex/index.html)
+* Package Manager: [homebrew](http://brew.sh/)
+* Text editor: [BBEdit](http://www.barebones.com/products/bbedit/) (paid) or [Aquamacs](http://aquamacs.org/) (free) For editing config and LaTex files.
+* Screen Sharing: [ScreenHero](https://screenhero.com/) BTW, Screenhero is joining Slack so some changes will be coming.
+
+No one I know uses the [github desktop software](https://desktop.github.com/) which is why it's not included in the above list.   Another IDE is [eclipse](http://www.eclipse.org/users/), but I wanted something lightweight and easy for less software developer types to learn.  Some developers like the [Sublime Text editor](http://www.sublimetext.com/), but I have no experience with it.
+
+#### Environment
+* Use Rprofile.site to set the prompt and some default option values
+* R libraries installed outside someone's home directory
+* Maintain the same environment across different computers
+* Manage the configuration through config files that are under source control
+* Use a package manager to install and update software
+
+### OS X Is Not Linux
+
+The majority of solutions to R problems seem to be developed on Linux distributions. Sometimes they do not work on OS X. My goal is to figure out how to take advantage of this wealth of knowledge while using my Mac.  What follows is a comprehensive model to make your environment more like Linux without giving up all the wonderfulness of a Mac.  The areas I cover are:
+
+* Rules About Who Owns What
+* System Administration and Privileges
+* File Protection Settings and umask
+* Homebrew and Package Managers
+* Disk Name Issues
+
+Need some motivation? Here's an example of something simple that turns out to be more complicated.  My Mac has 2 disk drives, with the 2nd drive storing my R programs.  I want to `cd` among my different directories using tab completion.  The CDPATH environment does just that, but not with tab completion. The bash-completion code needs to be installed.  If you want the performance fix for bash-completion, bash 4.x needs to be installed.  But OS X 10.10 ships with Bash 3.x.
+
+My bash configuration files are in my [home-profiles project](https://github.com/dgabbe/home-profiles).
+
+#### Rules About Who Owns What
+
+The Mac is an interesting platform because the GUI side and the command line side are mostly separate.  GUI software is installed by running an installer or dragging the application to the Applications folder.
+
+* `/usr/bin/` is owned by Apple and they update it for major releases and provide occasional patches. If you modify it, you run the risk of breaking something from Apple.
+* `/usr/local/bin` is available and can be owned by you.  More on that to come.
+* `/Applications` is for GUI applications.
+
+#### System Administation and Privileges
+
+When the Mac became a multiuser system, I created two accounts.  An admin account and a regular user account.  In the early days, I used this structure to found out which apps were well behaved. As security risks increased over the years, I adopted the use the least privileges philosophy so I work from a *Standard* account (in the Users & Groups System Preference).  Below is a table comparing the Standard and Admin accounts.
+
+====== Insert table =========
+
+If you review the output from `ls -alFeG /Applications`, you see that developers are not fully checking user and group setting and occasionally set group file protection to include write.  'Repair Permissions' in Disk Utility compares the files and their initial permissions in the BOM (bill of materials) in the receipt to the ones installed and changes the permissions to match the BOM<sup>[TC1](#TC1)</sup>.
+
+==== script to check and fix this will updated later on ====
+
+My practice for GUI apps is to install them from my Standard user account.  For Linux apps I do the following from the Terminal:
+
+```sh
+su - MyAdmin
+# Execute the instructions
+```
+The **-** is critical to establish the shell with only the MyAdmin environment and nothing from your account.
+
+#### File Protection Settings
+
+My Mac has multiple users and by default, all folders and files you create outside of the folders in your home directory that have icons (like Documents, Downloads, Pictures, Movies ) are readable and executable by anyone else on your Mac.  I preference is keep my files private and to grant others access on a specific basis.  That pattern can be implemented by setting the default file and folder permissions for
+
+* GUI apps by `sudo launchctl config user umask 066` from an admin account. Then reboot for it to take effect.
+* Command line by `umask 066`. This should be added to one of your bash start up files.
+
+Note that these settings will only be applied to new files created.  Existing files need to be changed manually. I also use Access Control Lists for even finer grained control. Additional information can be found with [these search terms](https://www.google.com/search?q=os+x+umask).
+
+*Note:* 11-Aug-2015 I found that RStudio v0.99.467 w/R v3.2.1 generates a permission denied error when creating a new project in an empty directory.  Creating the folder in Finder works and then RStudio does not generate an error.  BBEdit works correctly so I'll look into this, but it's low priority for now.
+
+#### Homebrew and Package Managers
+
+OS X does not have package manager like yum, rpm, homebrew, etc.  There are two comamnds, `installer` and `pkgutil`.  Apple seems to actively discourge developers from using `installer`.  `pkgutil` just reads the receipt database which is helpful.  Note that apps installed by dragging to the Applications folder don't seem to appear in the receipt database.  If you want to know what's installed, I much prefer using the terminal to get a listing for comparison or refinement.
+
+I selected [homebrew](http://brew.sh/) because my colleagues are quite satisfied using and I want to leverage their development methods.
+
+```sh
+su - MyAdmin
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# Binaries installed in /usr/local/bin"
+```
+
+My initial plan of using `homebrew` and [`cask`](https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md) to install R, RStudio, and the text editors came to an abrupt halt on 12-Aug-2015 with the announcement of [Changes to homebrew-cask installation behaviour](https://github.com/caskroom/homebrew-cask/issues/13201). The summary is cask is transitioning from linking to `/Applications` to moving files.  I'll wait for this change to become stable and revaluate what do in the future.
+
+There are people using `homebrew` to install R.  Here's one link - http://apple.stackexchange.com/questions/121401/how-do-i-install-r-on-os-x.
+
+#### Disk Name Issues
+
+My Macs have either multiple disks or multiple partitions and they had descriptive names that had spaces in them. There is nothing more confusing than networking mounting a disk on a remote machine and seeing two *Macintosh HD*s.  My Mac tenure started with System 7 and spaces in path names was not an issue.  Along came OS X, which is based on BSD, and now spaces in the file path become a real hassle.  Some OS X apps figure out where the files are when you rename the partition and others need to be reconnected.  When I renamed my partitions, these apps needed some help to find their files:
+
+* SourceTree
+* Dropbox
+* 1Password
+* Any BSD sym links
+* VMWare VMs (select moved option)
+
+### Check your path
+
+You want your PATH environment variable to start with `/usr/local/bin/` so the software you install is executed instead of Apple's versions. Check the /etc/paths file and update as needed.
+
+Your GUI apps, roughly those in /Applications, don't use the same path as your terminal sessions.  Those apps use the path defined in ~/.MacOSX/environment.plist.  So far, I have not encountered any issues, but mention it as one of those facts to keep in the recesses of your mind.
+
+### Install XQuartz
+
+XQuartz needs to be reinstalled any time OS X is upgraded.  This includes point releases such as 10.10.5.
+
+### Install Command Line Tools
+
+R installer asks if you want to install them.  Select the 'Yes' option.
+
+### Creating github and gitlab accounts and git config values
+
+Github is a huge asset and widely used so I wanted to use it for some of my work.  However, the free github account only allows public projects.  Gitlab allows for some free private projects so I use both remote repositories.  Recommend using the same email address for both accounts so that these git global settings are the same:
+
+```sh
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+```
+
+While many git tutorials tell you to set these values, at least for git 2.4.x and 2.5.x, there's no need.  The first time you do a ```git commit -m```, you are prompted for the info.  You may not have the luxury if you have multiple repository accounts in which case just issue the same command without ```--global``` in the working directory for that project.
+
+### ssh_askpass Missing Script Error
+
+The first time I installed git from https://git\-scm.com/download/mac.  When I setup my ssh URL, and tried to clone a repository, this error happened
+
+```sh
+ssh_askpass: exec(/usr/libexec/ssh-askpass): No such file or directory
+```
+
+If you are only using git, and install the git OS X Keychain Helper, the script is not needed.  Instead a dialog box will appear asking for your SSH password the first time you do ``` git clone``` command line and then you are all set.
+
+### Install MacTex
+
+Prior to the 14-June-2015 release of MacTex, the installation location was /usr/??.  As a result of an El Captain security change, the new location is /Library. This change
+⌘-L will show the log during a running installation.
+
+Apple ships an older version of ruby with Yosemite OS X 10.10.4.  After installing MacTex, you'll encounter this error when you use brew.
+
+```sh
+Error: invalid byte sequence in US-ASCII
+```
+Define these 4 environments variables for your session so this older version of ruby will be happy again:
+
+```sh
+export LANGUAGE="en_US:en"
+export LC_MESSAGES="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+export LC_COLLATE="en_US.UTF-8"
+```
+
+## R Programing
+
+You made it this far - great!  I've been using [Hadley's style guide](http://r-pkgs.had.co.nz/style.html) for my code. It's a simple guide well worth the time investment.  Experienced programmers may like http://www.johndcook.com/blog/r_language_for_programmers/ which summarizes some differences between R and other languages.
+
+
+### Optional Software: MacTerm
+
+http://www.macterm.net/features/
+
+discuss divvy
+
+---
+
+### <a name="refs">References and Miscellaneous Info</a>
+
+Footnotes & Links to info on the page:
+* **http://stat.ethz.ch/R-manual/R-devel/library/base/html/Startup.html**
+* https://support.rstudio.com/hc/en-us/articles/206827897-Secure-Package-Downloads-for-R
+* http://www.r-bloggers.com/fun-with-rprofile-and-customizing-r-startup/
+* http://www.gettinggeneticsdone.com/2013/07/customize-rprofile.html
+* http://inundata.org/2011/09/29/customizing-your-rprofile/
+* http://stackoverflow.com/questions/3485456/useful-little-functions-in-r
+* http://stackoverflow.com/questions/25579868/how-do-i-add-footnotes-to-github-flavoured-markdown
+* http://apple.stackexchange.com/questions/179148/installed-app-with-brew-cask-over-existing-install-did-it-remove-the-old-app-fi
+* http://stackoverflow.com/questions/29017001/r-nightmare-yosemite-r-rstudio-and-homebrew
+* http://zmjones.com/mac-setup/ (Very interesting post focusing on command line tools and Emacs)
+* http://emacs.stackexchange.com/questions/271/what-is-the-difference-between-aquamacs-and-other-mac-versions-of-emacs
+* https://discussions.agilebits.com/discussion/11563
+* http://g14n.info/2013/10/using-git-and-svn-together/#conclusion
+
+External Cites:
+
+* <a name="TC1"><sup>TC1</sup></a>: Tanaka, Brian, [*Take Control of Permissions in Snow Leopard*](https://www.takecontrolbooks.com/leopard-permissions), V1.0, pp61-62
+
+Select R package repository: https://stat.ethz.ch/R-manual/R-devel/library/utils/html/setRepositories.html

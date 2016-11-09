@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>How One Comment Transformed My Approach to Coding R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Frame 38 Blog</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Blog
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Recent Posts</li>
+    <li>
+      <a href="2016-10-25-Halloween_Manual_Scoping.html">Trick or Treat</a>
+    </li>
+    <li>
+      <a href="2016-09-15-How_One_Comment_Changed.html">How One Comment Transformed...</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="blog-posts.html">All</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="code-portfolio.html">Code Portfolio</a>
+</li>
+<li>
+  <a href="os-x-configuration-notes.html">OS X Configuration Notes</a>
+</li>
+<li>
+  <a href="faq.html">FAQ</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">How One Comment Transformed My Approach to Coding R</h1>
+<h4 class="date"><em>9/15/2016</em></h4>
+
+</div>
+
+
+<!-- ## How one comment transformed my approach to coding R -->
+<p>I had been programming R for about 9 months when I asked a computational biologist friend if he could review my first R project before I released it. His reply both surprised and fascinated me. It was simply that if all my functions and their side effects were not documented, he would pass on the code. He added there is so much R code out there with no documentation that no one has enough time to determine what is useful. Great feedback, time to implement it.</p>
+<p>R’s <a href="https://cran.r-project.org/web/packages/roxygen2/">Roxygen2</a> package will generate documentation from annotated source code. However, this only works when you are writing a package. No matter how hard I tried, I could not get the functions to work on a collection of R files in a project directory. Transforming <a href="https://github.com/dgabbe/dgutils">my project</a> into an R package would be a good learning experience.</p>
+<p>Here’s the list of changes I made:</p>
+<ol style="list-style-type: decimal">
+<li>Renamed project directory to conform to R’s <a href="http://r-pkgs.had.co.nz/package.html">package naming conventions</a>.</li>
+<li>Moved .R files into a subdirectory named <em>R</em>.</li>
+<li>Installed the devtools package, <code>install.packages(&quot;devtools&quot;)</code>.</li>
+<li>Executed <code>devtools::create(&quot;mypackage&quot;)</code> to generate a bare bones <code>DESCRIPTION</code> file.</li>
+<li>Coverted R comments to Roxygen comments. You do have comments, right?</li>
+<li>Built my package in RStudio, <em>Build-&gt;Build and Reload</em>. I changed <em>Build-&gt;Configure Build Tools…</em> to generate documentation on <em>Build and Reload</em>.</li>
+</ol>
+<p>The fifth step was really the work I needed to complete. I used RStudio’s <em>Code-&gt;Insert Roxygen Skelton</em> to create the template for each function. Then moved any relevant comments into the proper section and changed R’s comment delimiter, <code>#</code>, to Roxygen’s <code>#'</code>. I created a package level documentation page by creating an R file in the form <code>myPackage-package.R</code>. It’s a good spot to document any package <code>options</code>. I was psyched I could now split my code into multiple files for better organization.</p>
+<p>The Roxygen comments also include <code>@import</code> and <code>@export</code> directives so the build process will generate the <code>NAMESPACE</code> file. Any <code>library()</code> or <code>require()</code> calls must be converted to <code>@import</code> or <code>@importFrom</code> directives. Any function available outside the package needs the <code>@export</code> directive.</p>
+<p>The next benefit is how easy it becomes to share your code. <code>devtools::install_github()</code> will install your package from Github and <code>devtools::install_git()</code> will install it from a git repo. That’s all there is to it.</p>
+<p>The last benefit is a more explicit coding style, a la Python, which increases the compatibility of your R analysis scripts. A Python file typically starts with a section of <code>import</code> statements to gain access to code in other modules. R’s analog is the <code>library()</code> function. If you adopt this philosophy towards writing R code, it eliminates the need to set the <code>defaultPackages</code> option in <code>.Rprofile</code> or <code>Rprofile.site</code>, and makes your code simple to migrate to production.</p>
+<p>This project exceeded my expectations. My initial purpose was simply to produce documentation from annoated source code, but it quicky became clear that writing a package had practical benefits beyond documentation. The basics are easy to learn and RStudio’s features make it easy to code. I’m aleady working on my second package.</p>
+<!-- [![Creative Commons License](https://i.creativecommons.org/l/by-nd/4.0/80x15.png)](https://creativecommons.org/licenses/by-nd/4.0/) [David Gabbé](https://github.com/dgabbe) -->
+<div id="helpful-links" class="section level4">
+<h4>Helpful links:</h4>
+<ul>
+<li><a href="https://www.rstudio.com/products/rpackages/devtools/">RStudio devtools</a></li>
+<li>Hadley Wickham’s <a href="http://r-pkgs.had.co.nz/description.html">R packages</a> and direct link for <a href="https://r-pkgs.had.co.nz/man.html#roxygen-comments">Object Documentation</a></li>
+<li><a href="https://cran.r-project.org/doc/manuals/R-exts.html#Rd-format">Complete listing</a> of all Rd directives</li>
+<li>Karl Broman’s <a href="http://kbroman.org/pkg_primer/">R Package Primer</a></li>
+<li>Hillary Parker’s <a href="https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/">Writing an R Package From Scratch</a></li>
+<li>Fong Chung Chan’s <a href="https://tinyheero.github.io/jekyll/update/2015/07/26/making-your-first-R-package.html">Making Your First R Package</a></li>
+</ul>
+<!-- See [Rprofile.site](https://github.com/dgabbe/rprofile.site#rprofilesite), [dgutils](https://github.com/dgabbe/dgutils#dgutils), and [wdprompt](https://github.com/dgabbe/wdprompt#wdprompt) for my customizations. -->
+<p><a href="https://creativecommons.org/licenses/by-nd/4.0/"><img src="https://i.creativecommons.org/l/by-nd/4.0/80x15.png" alt="Creative Commons License" /></a> <a href="https://github.com/dgabbe">David Gabbé</a></p>
+<p>Generated on: 09-Nov-2016</p>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69499253-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>

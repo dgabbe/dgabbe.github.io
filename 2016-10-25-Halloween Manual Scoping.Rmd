@@ -1,17 +1,16 @@
 ---
-title: 
+title: "Trick or Treat - R You Coding With Manual Scope Constructs?"
+date: "10/15/2016"
 layout: post
 tags: [R, packages, customization]
-output: 
-  html_document: 
-    keep_md: yes
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Trick or Treat - R You Coding With Manual Scope Constructs?
+<!-- ## Trick or Treat - R You Coding With Manual Scope Constructs? -->
 
 Halloween is around the corner so it's good time to discuss two of R's scoping mechanisms.  R is rich in features, sometimes making it hard to select amoung them. My alarm bells ring loudly when I see manual scope control.  After I started writing packages, I realized I wasn't fully taking advantage of R's natural beauty to simplify code.  
 
@@ -77,7 +76,5 @@ If you find yourself trying to twist or bend the scoping rules, think if a funct
 
 See [Rprofile.site](https://github.com/dgabbe/rprofile.site#rprofilesite), [dgutils](https://github.com/dgabbe/dgutils#dgutils), and [wdprompt](https://github.com/dgabbe/wdprompt#wdprompt) for my customizations.
 
-[![Creative Commons License](https://i.creativecommons.org/l/by-nd/4.0/80x15.png)](https://creativecommons.org/licenses/by-nd/4.0/) [David Gabbé](https://github.com/dgabbe)
-
-Generated on: `r format(Sys.Date(), format = "%d-%b-%Y")`
-
+```{r child = '_blog-footer.Rmd'}
+```

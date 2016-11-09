@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<meta name="date" content="2016-10-15" />
+
+<title>Trick or Treat - R You Coding With Manual Scope Constructs?</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Frame 38 Blog</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Blog
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Recent Posts</li>
+    <li>
+      <a href="2016-10-25-Halloween_Manual_Scoping.html">Trick or Treat</a>
+    </li>
+    <li>
+      <a href="2016-09-15-How_One_Comment_Changed.html">How One Comment Transformed...</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="blog-posts.html">All</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="code-portfolio.html">Code Portfolio</a>
+</li>
+<li>
+  <a href="os-x-configuration-notes.html">OS X Configuration Notes</a>
+</li>
+<li>
+  <a href="faq.html">FAQ</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Trick or Treat - R You Coding With Manual Scope Constructs?</h1>
+<h4 class="date"><em>10/15/2016</em></h4>
+
+</div>
+
+
+<!-- ## Trick or Treat - R You Coding With Manual Scope Constructs? -->
+<p>Halloween is around the corner so it’s good time to discuss two of R’s scoping mechanisms. R is rich in features, sometimes making it hard to select amoung them. My alarm bells ring loudly when I see manual scope control. After I started writing packages, I realized I wasn’t fully taking advantage of R’s natural beauty to simplify code.</p>
+<p>As I searched for good ideas and tips for customizing <code>Rprofile.site</code> and <code>.Rprofile</code>, a common construct I found was:</p>
+<pre class="r"><code>local({
+  r &lt;- getOption(&quot;repos&quot;)
+  r[&quot;CRAN&quot;] &lt;- &quot;http://cran.revolutionanalytics.com&quot;
+  options(&quot;repos&quot; = r)
+})</code></pre>
+<p>The use of <code>local()</code> prevents the enclosed code from making any changes to the <code>base</code> environment which is a good thing. Functions also work the same way and it just so happens R provides <code>.First()</code>. We can move the code into <code>.First()</code> and toss <code>local()</code>. Easy peasy.</p>
+<p>The next construct I found is</p>
+<pre class="r"><code>.env &lt;- new.env()
+attach(.env)
+ 
+.env$some_function &lt;- function(x) {
+    # your code here
+}
+
+.env$different_function &lt;- function(x) {
+    # your code here
+}</code></pre>
+<p>This creates a <em>hidden</em> namespace, attaches it to the search path, and adds a few utilty functions. Being hidden prevents it from being deleted when you cleanup your environment with <code>rm()</code>. Well, that’s only true if the argument to <code>rm</code> doesn’t include hidden objects.</p>
+<p>Defining functions in an initialization file doesn’t help portability, compatibility, or sharability. Where do most functions come from? Packages! If you put all your functions into a package and host it in git repo, you have an easy way to share your code, even if it’s just among your computers. Once you <code>devtools::install_github(&quot;my-account/my-package&quot;)</code>, you don’t need to attach it to your environment to use any of the functions. Just invoke <code>my-package::my-function()</code>. Now there’s even less clutter in your environment. Sharing could also mean deploying your Shiny app, where the <code>rsconnect</code> package will automatically manage your dependencies.</p>
+<p>If you document your functions, the switch to a package format is almost as simple as changing comment delimiters. RStudio will manage all other aspects of building a package. You benefit because now you can access your documentation from R’s help system.</p>
+<p>Ah, but you still want your wonderful functions loaded automatically. The simplest code is</p>
+<pre class="r"><code>.First &lt;- function() {
+  library(&quot;my-package&quot;, quietly = TRUE)
+}</code></pre>
+<p>If the library can’t be loaded, then <code>library()</code> will stop execution with an error. I don’t like stopping the initialization process over a missing optional piece. Let’s try <code>library()'s</code> sibling</p>
+<pre class="r"><code>.First &lt;- function() {
+  require(&quot;my-package&quot;, quietly = TRUE)
+}</code></pre>
+<p>That works, but it displays a warning if the package is missing. Needless noise.</p>
+<pre class="r"><code>.First &lt;- function() {
+  suppressWarnings(require(&quot;my-package&quot;, quietly = TRUE))
+}</code></pre>
+<p>The initialization process will complete and won’t display any warning or informational messages. Plus a logical is returned for any additional processing.</p>
+<pre class="r"><code>.First &lt;- function() {
+  if (suppressWarnings(require(&quot;my-package&quot;, quietly = TRUE)) ) {
+    options(
+      &quot;my-package.option1&quot; = TRUE,
+      &quot;my-package.option2&quot; = &quot;my-message&quot;
+    )
+  }
+}</code></pre>
+<p>If you find yourself trying to twist or bend the scoping rules, think if a function or package would accomplish the same result and provide additional benefits of better organization, sharing, documentation and easy Shiny deployment.</p>
+<p>See <a href="https://github.com/dgabbe/rprofile.site#rprofilesite">Rprofile.site</a>, <a href="https://github.com/dgabbe/dgutils#dgutils">dgutils</a>, and <a href="https://github.com/dgabbe/wdprompt#wdprompt">wdprompt</a> for my customizations.</p>
+<!-- See [Rprofile.site](https://github.com/dgabbe/rprofile.site#rprofilesite), [dgutils](https://github.com/dgabbe/dgutils#dgutils), and [wdprompt](https://github.com/dgabbe/wdprompt#wdprompt) for my customizations. -->
+<p><a href="https://creativecommons.org/licenses/by-nd/4.0/"><img src="https://i.creativecommons.org/l/by-nd/4.0/80x15.png" alt="Creative Commons License" /></a> <a href="https://github.com/dgabbe">David Gabbé</a></p>
+<p>Generated on: 09-Nov-2016</p>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69499253-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>

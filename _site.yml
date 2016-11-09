@@ -1,15 +1,34 @@
-name: Frame38 Blog
-output_dir: _site
-include: ["demo.R"]
-exclude: ["docs.txt", "*.csv"]
+name: Frame 38 Blog
+output_dir: "docs"
+exclude: ["*.txt", "*.csv", "^_untracked.*", "CNAME"]
 navbar:
-  title: "Frame38 Blog"
-left:
-  - text: "Home"
-    href: index.html
-  - text: "About"
-    href: about.html
+  title: "Frame 38 Blog"
+  type: default
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Blog"
+      menu:
+        - text: "Recent Posts"
+        - text: "Trick or Treat"
+          href: 2016-10-25-Halloween_Manual_Scoping.html
+        - text: "How One Comment Transformed..."
+          href: 2016-09-15-How_One_Comment_Changed.html
+        - text: "------"
+        - text: "All"
+          href: blog-posts.html
+    - text: "Code Portfolio"
+      href: code-portfolio.html
+    - text: "OS X Configuration Notes"
+      href: os-x-configuration-notes.html
+    - text: "FAQ"
+      href: faq.html
 output:
   html_document:
-    toc: true
+    theme: readable
+    toc: false
     highlight: textmate
+    mathjax: null
+    include:
+      after_body: frame38-blog-analytics.js
+
