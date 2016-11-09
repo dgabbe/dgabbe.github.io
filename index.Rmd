@@ -1,5 +1,5 @@
 ---
-title: "Frame 38 Blog Home"
+title: "Welcome"
 author: "David Gabbé"
 output: html_document
 ---
@@ -7,8 +7,6 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-### Welcome
 
 This site is an experiment building a static site with [Rmarkdown](http://rmarkdown.rstudio.com/rmarkdown_websites.html).  My old web 
 site with all the photographs is still [around](http://www.frame38.com).
