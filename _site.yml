@@ -1,6 +1,6 @@
 name: Frame 38 Blog
 output_dir: "docs"
-exclude: ["*.txt", "*.csv", "^_untracked.*", "CNAME"]
+exclude: ["*.txt", "*.csv", "^_untracked.*"]
 navbar:
   title: "Frame 38 Blog"
   type: default
