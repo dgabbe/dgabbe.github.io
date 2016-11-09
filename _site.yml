@@ -1,5 +1,5 @@
 name: Frame 38 Blog
-output_dir: "docs"
+output_dir: "."
 exclude: ["*.txt", "*.csv", "^_untracked.*"]
 navbar:
   title: "Frame 38 Blog"

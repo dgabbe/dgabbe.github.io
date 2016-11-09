@@ -9,10 +9,9 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="David Gabbé" />
 
 
-<title>Frame 38 Blog Home</title>
+<title>Code Portfolio</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -220,30 +219,38 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Frame 38 Blog Home</h1>
-<h4 class="author"><em>David Gabbé</em></h4>
+<h1 class="title toc-ignore">Code Portfolio</h1>
 
 </div>
 
 
-<div id="welcome" class="section level3">
-<h3>Welcome</h3>
-<p>This site is an experiment building a static site with <a href="http://rmarkdown.rstudio.com/rmarkdown_websites.html">Rmarkdown</a>. My old web site with all the photographs is still <a href="http://www.frame38.com">around</a>.</p>
-<p>I’m not a blogger per se, but I decided to give back to the community as other people’s blogs were and are tremenously helpful towards enabling my progress. And before going any further, my posts tend to be around the R ecosystem.</p>
+<div id="r-customization" class="section level3">
+<h3>R Customization</h3>
+<dl>
+<dt><a href="https://github.com/dgabbe/rprofile.site#rprofilesite">Rprofile.site</a></dt>
+<dd><code>Rprofile.site</code> and <code>.Renviron</code> to set some reasonable defaults. Complete installation instructions are provided along with install and uninstall scripts.
+</dd>
+<dt><a href="http://blog.frame38.com/wdprompt/reference/wdprompt-package.html">wdprompt</a></dt>
+<dd>A package to change R’s console prompt to display the current working directory similar to the bash prompt. Implemented as a taskCallback to make it independent of clearing the environment.
+</dd>
+</dl>
 </div>
-<div id="why-rmarkdown-for-a-blog" class="section level3">
-<h3>Why Rmarkdown For a Blog?</h3>
-<p>My intial plan was to post articles on LinkedIn, but those articles may not include HTML code and there’s no way to generate anywhere near as nicely formatted R code or even generate sections with R code.</p>
-<p>WordPress seems like overkill for my needs and I didn’t want the sysadmin hassles.</p>
-<p>Github will host static sites for free and has a huge benefit. I can publish my package documentation automatically using <a href="https://github.com/hadley/pkgdown#pkgdown"><code>pkgdown</code></a> directly to this website by setting <em>Github Pages</em> to <code>Source - master branch/docs folder</code> under project settings.</p>
+<div id="r-utilities" class="section level3">
+<h3>R Utilities</h3>
+<dl>
+<dt><a href="http://blog.frame38.com/dgutils/reference/dgutils-package.html">dgutils</a></dt>
+<dd>A package consisting of aliases, functions, and graphical themes that improve one’s efficiency and workflow.
+</dd>
+</dl>
 </div>
-<div id="why-is-a-package-website-a-big-deal" class="section level3">
-<h3>Why is a Package Website a Big Deal?</h3>
-<p>An R package is only useful if people use it. People will only use it if they can <strong>easily</strong> check it out, but developers only want to write the documentation once. As part of building your package, R help files are genereated from your Roxygen comments. And finally <code>pkgdown</code> translates the R help files into a website. Now you can browse a website to learn the details of a package. Awesome!</p>
-</div>
-<div id="more-questions" class="section level3">
-<h3>More Questions?</h3>
-<p>Try the <a href="faq.html">FAQ</a>.</p>
+<div id="shiny-apps" class="section level3">
+<h3>Shiny Apps</h3>
+<dl>
+<dt><a href="https://dgabbe.shinyapps.io/tire_pressure_shiny">Tire Pressure</a></dt>
+<dd>This app calculates optimal bicycle tire inflation pressures. If you race or ride long distance events, this simple change could make the difference between a podium spot or missing the time cutoff.
+</dd>
+</dl>
+<p>This version is a proof on concept focusing on reusing the analysis functions unchanged in the Shiny app and displaying the tire widths by their inflations curves with <a href="http://directlabels.r-forge.r-project.org/">directlabels</a>.</p>
 </div>
 
 <script>

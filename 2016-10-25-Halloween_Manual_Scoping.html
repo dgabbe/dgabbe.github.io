@@ -9,10 +9,10 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="David Gabbé" />
 
+<meta name="date" content="2016-10-15" />
 
-<title>Frame 38 Blog Home</title>
+<title>Trick or Treat - R You Coding With Manual Scope Constructs?</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -220,31 +220,61 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Frame 38 Blog Home</h1>
-<h4 class="author"><em>David Gabbé</em></h4>
+<h1 class="title toc-ignore">Trick or Treat - R You Coding With Manual Scope Constructs?</h1>
+<h4 class="date"><em>10/15/2016</em></h4>
 
 </div>
 
 
-<div id="welcome" class="section level3">
-<h3>Welcome</h3>
-<p>This site is an experiment building a static site with <a href="http://rmarkdown.rstudio.com/rmarkdown_websites.html">Rmarkdown</a>. My old web site with all the photographs is still <a href="http://www.frame38.com">around</a>.</p>
-<p>I’m not a blogger per se, but I decided to give back to the community as other people’s blogs were and are tremenously helpful towards enabling my progress. And before going any further, my posts tend to be around the R ecosystem.</p>
-</div>
-<div id="why-rmarkdown-for-a-blog" class="section level3">
-<h3>Why Rmarkdown For a Blog?</h3>
-<p>My intial plan was to post articles on LinkedIn, but those articles may not include HTML code and there’s no way to generate anywhere near as nicely formatted R code or even generate sections with R code.</p>
-<p>WordPress seems like overkill for my needs and I didn’t want the sysadmin hassles.</p>
-<p>Github will host static sites for free and has a huge benefit. I can publish my package documentation automatically using <a href="https://github.com/hadley/pkgdown#pkgdown"><code>pkgdown</code></a> directly to this website by setting <em>Github Pages</em> to <code>Source - master branch/docs folder</code> under project settings.</p>
-</div>
-<div id="why-is-a-package-website-a-big-deal" class="section level3">
-<h3>Why is a Package Website a Big Deal?</h3>
-<p>An R package is only useful if people use it. People will only use it if they can <strong>easily</strong> check it out, but developers only want to write the documentation once. As part of building your package, R help files are genereated from your Roxygen comments. And finally <code>pkgdown</code> translates the R help files into a website. Now you can browse a website to learn the details of a package. Awesome!</p>
-</div>
-<div id="more-questions" class="section level3">
-<h3>More Questions?</h3>
-<p>Try the <a href="faq.html">FAQ</a>.</p>
-</div>
+<!-- ## Trick or Treat - R You Coding With Manual Scope Constructs? -->
+<p>Halloween is around the corner so it’s good time to discuss two of R’s scoping mechanisms. R is rich in features, sometimes making it hard to select amoung them. My alarm bells ring loudly when I see manual scope control. After I started writing packages, I realized I wasn’t fully taking advantage of R’s natural beauty to simplify code.</p>
+<p>As I searched for good ideas and tips for customizing <code>Rprofile.site</code> and <code>.Rprofile</code>, a common construct I found was:</p>
+<pre class="r"><code>local({
+  r &lt;- getOption(&quot;repos&quot;)
+  r[&quot;CRAN&quot;] &lt;- &quot;http://cran.revolutionanalytics.com&quot;
+  options(&quot;repos&quot; = r)
+})</code></pre>
+<p>The use of <code>local()</code> prevents the enclosed code from making any changes to the <code>base</code> environment which is a good thing. Functions also work the same way and it just so happens R provides <code>.First()</code>. We can move the code into <code>.First()</code> and toss <code>local()</code>. Easy peasy.</p>
+<p>The next construct I found is</p>
+<pre class="r"><code>.env &lt;- new.env()
+attach(.env)
+ 
+.env$some_function &lt;- function(x) {
+    # your code here
+}
+
+.env$different_function &lt;- function(x) {
+    # your code here
+}</code></pre>
+<p>This creates a <em>hidden</em> namespace, attaches it to the search path, and adds a few utilty functions. Being hidden prevents it from being deleted when you cleanup your environment with <code>rm()</code>. Well, that’s only true if the argument to <code>rm</code> doesn’t include hidden objects.</p>
+<p>Defining functions in an initialization file doesn’t help portability, compatibility, or sharability. Where do most functions come from? Packages! If you put all your functions into a package and host it in git repo, you have an easy way to share your code, even if it’s just among your computers. Once you <code>devtools::install_github(&quot;my-account/my-package&quot;)</code>, you don’t need to attach it to your environment to use any of the functions. Just invoke <code>my-package::my-function()</code>. Now there’s even less clutter in your environment. Sharing could also mean deploying your Shiny app, where the <code>rsconnect</code> package will automatically manage your dependencies.</p>
+<p>If you document your functions, the switch to a package format is almost as simple as changing comment delimiters. RStudio will manage all other aspects of building a package. You benefit because now you can access your documentation from R’s help system.</p>
+<p>Ah, but you still want your wonderful functions loaded automatically. The simplest code is</p>
+<pre class="r"><code>.First &lt;- function() {
+  library(&quot;my-package&quot;, quietly = TRUE)
+}</code></pre>
+<p>If the library can’t be loaded, then <code>library()</code> will stop execution with an error. I don’t like stopping the initialization process over a missing optional piece. Let’s try <code>library()'s</code> sibling</p>
+<pre class="r"><code>.First &lt;- function() {
+  require(&quot;my-package&quot;, quietly = TRUE)
+}</code></pre>
+<p>That works, but it displays a warning if the package is missing. Needless noise.</p>
+<pre class="r"><code>.First &lt;- function() {
+  suppressWarnings(require(&quot;my-package&quot;, quietly = TRUE))
+}</code></pre>
+<p>The initialization process will complete and won’t display any warning or informational messages. Plus a logical is returned for any additional processing.</p>
+<pre class="r"><code>.First &lt;- function() {
+  if (suppressWarnings(require(&quot;my-package&quot;, quietly = TRUE)) ) {
+    options(
+      &quot;my-package.option1&quot; = TRUE,
+      &quot;my-package.option2&quot; = &quot;my-message&quot;
+    )
+  }
+}</code></pre>
+<p>If you find yourself trying to twist or bend the scoping rules, think if a function or package would accomplish the same result and provide additional benefits of better organization, sharing, documentation and easy Shiny deployment.</p>
+<p>See <a href="https://github.com/dgabbe/rprofile.site#rprofilesite">Rprofile.site</a>, <a href="https://github.com/dgabbe/dgutils#dgutils">dgutils</a>, and <a href="https://github.com/dgabbe/wdprompt#wdprompt">wdprompt</a> for my customizations.</p>
+<!-- See [Rprofile.site](https://github.com/dgabbe/rprofile.site#rprofilesite), [dgutils](https://github.com/dgabbe/dgutils#dgutils), and [wdprompt](https://github.com/dgabbe/wdprompt#wdprompt) for my customizations. -->
+<p><a href="https://creativecommons.org/licenses/by-nd/4.0/"><img src="https://i.creativecommons.org/l/by-nd/4.0/80x15.png" alt="Creative Commons License" /></a> <a href="https://github.com/dgabbe">David Gabbé</a></p>
+<p>Generated on: 09-Nov-2016</p>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
