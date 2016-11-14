@@ -1,5 +1,0 @@
-<!-- See [Rprofile.site](https://github.com/dgabbe/rprofile.site#rprofilesite), [dgutils](https://github.com/dgabbe/dgutils#dgutils), and [wdprompt](https://github.com/dgabbe/wdprompt#wdprompt) for my customizations. -->
-
-[![Creative Commons License](https://i.creativecommons.org/l/by-nd/4.0/80x15.png)](https://creativecommons.org/licenses/by-nd/4.0/) [David Gabbé](https://github.com/dgabbe)
-
-Generated on: `r format(Sys.Date(), format = "%d-%b-%Y")`
