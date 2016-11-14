@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>OS X Configuration Notes</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Frame 38 Blog</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Blog
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Recent Posts</li>
+    <li>
+      <a href="2016-10-25-Halloween_Manual_Scoping.html">Trick or Treat</a>
+    </li>
+    <li>
+      <a href="2016-09-15-How_One_Comment_Changed.html">How One Comment Transformed...</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="blog-posts.html">All</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="code-portfolio.html">Code Portfolio</a>
+</li>
+<li>
+  <a href="os-x-configuration-notes.html">OS X Configuration Notes</a>
+</li>
+<li>
+  <a href="faq.html">FAQ</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">OS X Configuration Notes</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#system-differences">System Differences</a></li>
+<li><a href="#desired-development-environment">Desired Development Environment</a></li>
+<li><a href="#customizing-your-r-environment"><a name="customize">Customizing Your R Environment</a></a></li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#desired-configuration"><a name"desiredConfig">Desired Configuration</a></a></li>
+<li><a href="#os-x-is-not-linux">OS X Is Not Linux</a></li>
+<li><a href="#check-your-path">Check your path</a></li>
+<li><a href="#install-xquartz">Install XQuartz</a></li>
+<li><a href="#install-command-line-tools">Install Command Line Tools</a></li>
+<li><a href="#creating-github-and-gitlab-accounts-and-git-config-values">Creating github and gitlab accounts and git config values</a></li>
+<li><a href="#ssh_askpass-missing-script-error">ssh_askpass Missing Script Error</a></li>
+<li><a href="#install-mactex">Install MacTex</a></li>
+<li><a href="#r-programing">R Programing</a><ul>
+<li><a href="#optional-software-macterm">Optional Software: MacTerm</a></li>
+<li><a href="#references-and-miscellaneous-info"><a name="refs">References and Miscellaneous Info</a></a></li>
+</ul></li>
+</ul>
+</div>
+
+<p>Notes on turning my Mac into a serious developer’s machine. This odyssey started with OS X 10.10.4 and continues today covering OS X 10.11.6.</p>
+<div id="system-differences" class="section level3">
+<h3>System Differences</h3>
+<p>My system is different in ways that will turn out to be significant:</p>
+<ul>
+<li>My user account is a <em>standard</em> account, not an <em>adminstrator</em> account</li>
+<li>My umask is set to 0066</li>
+<li>My development folder is on a second hard drive</li>
+<li>My file and folder permissions have ACLs</li>
+</ul>
+</div>
+<div id="desired-development-environment" class="section level3">
+<h3>Desired Development Environment</h3>
+<p><em>pick up revisions here… The rest is a work in progress.</em></p>
+</div>
+<div id="customizing-your-r-environment" class="section level3">
+<h3><a name="customize">Customizing Your R Environment</a></h3>
+<p>My best practice is to keep config files under source control and have an easy process to keep each Mac up-to-date with any config file changes. I do this by creating symlinks from R’s file names to the actual files in my git working directory.</p>
+<p>First, if you have not installed Apple’s XCode tools, or have done a major OS X upgrade:</p>
+<pre class="sh"><code>xcode-select --install</code></pre>
+<p>If your R environment isn’t what you thought it should be, use <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Rhome.html"><code>R.home</code></a> to verify the path to the various pieces of R.</p>
+<p>I like to jump into a new technology and with R, I was hooked on ggplot2. At some point you need to step back understand some of the console error or warning messages that scrolled by. I’ve written up some of my lessons learned in <a href="#lessonsLearned">this section</a></p>
+<p>I’m in the process of documenting how I created the rest of my R setup. It’s a work in progress which gets updated a few times a week.</p>
+</div>
+<div id="summary" class="section level3">
+<h3>Summary</h3>
+<p>My first R setup was done by downloading XQuartz, R, and RStudio as Mac binaries and installing them in the order listed. I call this the seminar setup. As an aside, there is an online environment (at the time is was www.compileonline.com), <a href="http://www.tutorialspoint.com/r_terminal_online.php" class="uri">http://www.tutorialspoint.com/r_terminal_online.php</a>, if you don’t want to install anything.</p>
+<p>My second R setup, to take advantage of the RStudio-git integration, was done mainly by following these instructions - <a href="http://burnedpixel.com/blog/beginners-setup-guide-for-ruby-node-git-github-on-your-mac/" class="uri">http://burnedpixel.com/blog/beginners-setup-guide-for-ruby-node-git-github-on-your-mac/</a> and stopping before installing Ruby.</p>
+<p>MacTeX was installed for PDF file generation. And that’s when I found that homebrew, really ruby, stopped working because of a character encoding setting.</p>
+<p>Since my Rproject.site wasn’t being found either, it was time to figure things with a more structured approach.</p>
+</div>
+<div id="desired-configuration" class="section level3">
+<h3><a name"desiredConfig">Desired Configuration</a></h3>
+<div id="tools" class="section level4">
+<h4>Tools</h4>
+<ul>
+<li>git respository: <a href="http://github.com">github</a> (free public repos) and <a href="http://gitlab.com">gitlab</a> (free private repos)</li>
+<li>Visual git browser: <a href="https://www.sourcetreeapp.com/">SourceTree</a> (free) or <a href="http://www.git-tower.com">Tower</a> (paid)</li>
+<li>R IDE: <a href="http://rstudio.com">RStudio</a></li>
+<li>PDF generation: <a href="http://www.tug.org/mactex/index.html">MacTex</a></li>
+<li>Package Manager: <a href="http://brew.sh/">homebrew</a></li>
+<li>Text editor: <a href="http://www.barebones.com/products/bbedit/">BBEdit</a> (paid) or <a href="http://aquamacs.org/">Aquamacs</a> (free) For editing config and LaTex files.</li>
+<li>Screen Sharing: <a href="https://screenhero.com/">ScreenHero</a> BTW, Screenhero is joining Slack so some changes will be coming.</li>
+</ul>
+<p>No one I know uses the <a href="https://desktop.github.com/">github desktop software</a> which is why it’s not included in the above list. Another IDE is <a href="http://www.eclipse.org/users/">eclipse</a>, but I wanted something lightweight and easy for less software developer types to learn. Some developers like the <a href="http://www.sublimetext.com/">Sublime Text editor</a>, but I have no experience with it.</p>
+</div>
+<div id="environment" class="section level4">
+<h4>Environment</h4>
+<ul>
+<li>Use Rprofile.site to set the prompt and some default option values</li>
+<li>R libraries installed outside someone’s home directory</li>
+<li>Maintain the same environment across different computers</li>
+<li>Manage the configuration through config files that are under source control</li>
+<li>Use a package manager to install and update software</li>
+</ul>
+</div>
+</div>
+<div id="os-x-is-not-linux" class="section level3">
+<h3>OS X Is Not Linux</h3>
+<p>The majority of solutions to R problems seem to be developed on Linux distributions. Sometimes they do not work on OS X. My goal is to figure out how to take advantage of this wealth of knowledge while using my Mac. What follows is a comprehensive model to make your environment more like Linux without giving up all the wonderfulness of a Mac. The areas I cover are:</p>
+<ul>
+<li>Rules About Who Owns What</li>
+<li>System Administration and Privileges</li>
+<li>File Protection Settings and umask</li>
+<li>Homebrew and Package Managers</li>
+<li>Disk Name Issues</li>
+</ul>
+<p>Need some motivation? Here’s an example of something simple that turns out to be more complicated. My Mac has 2 disk drives, with the 2nd drive storing my R programs. I want to <code>cd</code> among my different directories using tab completion. The CDPATH environment does just that, but not with tab completion. The bash-completion code needs to be installed. If you want the performance fix for bash-completion, bash 4.x needs to be installed. But OS X 10.10 ships with Bash 3.x.</p>
+<p>My bash configuration files are in my <a href="https://github.com/dgabbe/home-profiles">home-profiles project</a>.</p>
+<div id="rules-about-who-owns-what" class="section level4">
+<h4>Rules About Who Owns What</h4>
+<p>The Mac is an interesting platform because the GUI side and the command line side are mostly separate. GUI software is installed by running an installer or dragging the application to the Applications folder.</p>
+<ul>
+<li><code>/usr/bin/</code> is owned by Apple and they update it for major releases and provide occasional patches. If you modify it, you run the risk of breaking something from Apple.</li>
+<li><code>/usr/local/bin</code> is available and can be owned by you. More on that to come.</li>
+<li><code>/Applications</code> is for GUI applications.</li>
+</ul>
+</div>
+<div id="system-administation-and-privileges" class="section level4">
+<h4>System Administation and Privileges</h4>
+<p>When the Mac became a multiuser system, I created two accounts. An admin account and a regular user account. In the early days, I used this structure to found out which apps were well behaved. As security risks increased over the years, I adopted the use the least privileges philosophy so I work from a <em>Standard</em> account (in the Users &amp; Groups System Preference). Below is a table comparing the Standard and Admin accounts.</p>
+<p>====== Insert table =========</p>
+<p>If you review the output from <code>ls -alFeG /Applications</code>, you see that developers are not fully checking user and group setting and occasionally set group file protection to include write. ‘Repair Permissions’ in Disk Utility compares the files and their initial permissions in the BOM (bill of materials) in the receipt to the ones installed and changes the permissions to match the BOM<sup><a href="#TC1">TC1</a></sup>.</p>
+<p>==== script to check and fix this will updated later on ====</p>
+<p>My practice for GUI apps is to install them from my Standard user account. For Linux apps I do the following from the Terminal:</p>
+<pre class="sh"><code>su - MyAdmin
+# Execute the instructions</code></pre>
+<p>The <strong>-</strong> is critical to establish the shell with only the MyAdmin environment and nothing from your account.</p>
+</div>
+<div id="file-protection-settings" class="section level4">
+<h4>File Protection Settings</h4>
+<p>My Mac has multiple users and by default, all folders and files you create outside of the folders in your home directory that have icons (like Documents, Downloads, Pictures, Movies ) are readable and executable by anyone else on your Mac. I preference is keep my files private and to grant others access on a specific basis. That pattern can be implemented by setting the default file and folder permissions for</p>
+<ul>
+<li>GUI apps by <code>sudo launchctl config user umask 066</code> from an admin account. Then reboot for it to take effect.</li>
+<li>Command line by <code>umask 066</code>. This should be added to one of your bash start up files.</li>
+</ul>
+<p>Note that these settings will only be applied to new files created. Existing files need to be changed manually. I also use Access Control Lists for even finer grained control. Additional information can be found with <a href="https://www.google.com/search?q=os+x+umask">these search terms</a>.</p>
+<p><em>Note:</em> 11-Aug-2015 I found that RStudio v0.99.467 w/R v3.2.1 generates a permission denied error when creating a new project in an empty directory. Creating the folder in Finder works and then RStudio does not generate an error. BBEdit works correctly so I’ll look into this, but it’s low priority for now.</p>
+</div>
+<div id="homebrew-and-package-managers" class="section level4">
+<h4>Homebrew and Package Managers</h4>
+<p>OS X does not have package manager like yum, rpm, homebrew, etc. There are two comamnds, <code>installer</code> and <code>pkgutil</code>. Apple seems to actively discourge developers from using <code>installer</code>. <code>pkgutil</code> just reads the receipt database which is helpful. Note that apps installed by dragging to the Applications folder don’t seem to appear in the receipt database. If you want to know what’s installed, I much prefer using the terminal to get a listing for comparison or refinement.</p>
+<p>I selected <a href="http://brew.sh/">homebrew</a> because my colleagues are quite satisfied using and I want to leverage their development methods.</p>
+<pre class="sh"><code>su - MyAdmin
+ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+# Binaries installed in /usr/local/bin&quot;</code></pre>
+<p>My initial plan of using <code>homebrew</code> and <a href="https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md"><code>cask</code></a> to install R, RStudio, and the text editors came to an abrupt halt on 12-Aug-2015 with the announcement of <a href="https://github.com/caskroom/homebrew-cask/issues/13201">Changes to homebrew-cask installation behaviour</a>. The summary is cask is transitioning from linking to <code>/Applications</code> to moving files. I’ll wait for this change to become stable and revaluate what do in the future.</p>
+<p>There are people using <code>homebrew</code> to install R. Here’s one link - <a href="http://apple.stackexchange.com/questions/121401/how-do-i-install-r-on-os-x" class="uri">http://apple.stackexchange.com/questions/121401/how-do-i-install-r-on-os-x</a>.</p>
+</div>
+<div id="disk-name-issues" class="section level4">
+<h4>Disk Name Issues</h4>
+<p>My Macs have either multiple disks or multiple partitions and they had descriptive names that had spaces in them. There is nothing more confusing than networking mounting a disk on a remote machine and seeing two <em>Macintosh HD</em>s. My Mac tenure started with System 7 and spaces in path names was not an issue. Along came OS X, which is based on BSD, and now spaces in the file path become a real hassle. Some OS X apps figure out where the files are when you rename the partition and others need to be reconnected. When I renamed my partitions, these apps needed some help to find their files:</p>
+<ul>
+<li>SourceTree</li>
+<li>Dropbox</li>
+<li>1Password</li>
+<li>Any BSD sym links</li>
+<li>VMWare VMs (select moved option)</li>
+</ul>
+</div>
+</div>
+<div id="check-your-path" class="section level3">
+<h3>Check your path</h3>
+<p>You want your PATH environment variable to start with <code>/usr/local/bin/</code> so the software you install is executed instead of Apple’s versions. Check the /etc/paths file and update as needed.</p>
+<p>Your GUI apps, roughly those in /Applications, don’t use the same path as your terminal sessions. Those apps use the path defined in ~/.MacOSX/environment.plist. So far, I have not encountered any issues, but mention it as one of those facts to keep in the recesses of your mind.</p>
+</div>
+<div id="install-xquartz" class="section level3">
+<h3>Install XQuartz</h3>
+<p>XQuartz needs to be reinstalled any time OS X is upgraded. This includes point releases such as 10.10.5.</p>
+</div>
+<div id="install-command-line-tools" class="section level3">
+<h3>Install Command Line Tools</h3>
+<p>R installer asks if you want to install them. Select the ‘Yes’ option.</p>
+</div>
+<div id="creating-github-and-gitlab-accounts-and-git-config-values" class="section level3">
+<h3>Creating github and gitlab accounts and git config values</h3>
+<p>Github is a huge asset and widely used so I wanted to use it for some of my work. However, the free github account only allows public projects. Gitlab allows for some free private projects so I use both remote repositories. Recommend using the same email address for both accounts so that these git global settings are the same:</p>
+<pre class="sh"><code>git config --global user.email &quot;you@example.com&quot;
+git config --global user.name &quot;Your Name&quot;</code></pre>
+<p>While many git tutorials tell you to set these values, at least for git 2.4.x and 2.5.x, there’s no need. The first time you do a <code>git commit -m</code>, you are prompted for the info. You may not have the luxury if you have multiple repository accounts in which case just issue the same command without <code>--global</code> in the working directory for that project.</p>
+</div>
+<div id="ssh_askpass-missing-script-error" class="section level3">
+<h3>ssh_askpass Missing Script Error</h3>
+<p>The first time I installed git from <a href="https://git\-scm.com/download/mac" class="uri">https://git\-scm.com/download/mac</a>. When I setup my ssh URL, and tried to clone a repository, this error happened</p>
+<pre class="sh"><code>ssh_askpass: exec(/usr/libexec/ssh-askpass): No such file or directory</code></pre>
+<p>If you are only using git, and install the git OS X Keychain Helper, the script is not needed. Instead a dialog box will appear asking for your SSH password the first time you do <code>git clone</code> command line and then you are all set.</p>
+</div>
+<div id="install-mactex" class="section level3">
+<h3>Install MacTex</h3>
+<p>Prior to the 14-June-2015 release of MacTex, the installation location was /usr/??. As a result of an El Captain security change, the new location is /Library. This change ⌘-L will show the log during a running installation.</p>
+<p>Apple ships an older version of ruby with Yosemite OS X 10.10.4. After installing MacTex, you’ll encounter this error when you use brew.</p>
+<pre class="sh"><code>Error: invalid byte sequence in US-ASCII</code></pre>
+<p>Define these 4 environments variables for your session so this older version of ruby will be happy again:</p>
+<pre class="sh"><code>export LANGUAGE=&quot;en_US:en&quot;
+export LC_MESSAGES=&quot;en_US.UTF-8&quot;
+export LC_CTYPE=&quot;en_US.UTF-8&quot;
+export LC_COLLATE=&quot;en_US.UTF-8&quot;</code></pre>
+</div>
+<div id="r-programing" class="section level2">
+<h2>R Programing</h2>
+<p>You made it this far - great! I’ve been using <a href="http://r-pkgs.had.co.nz/style.html">Hadley’s style guide</a> for my code. It’s a simple guide well worth the time investment. Experienced programmers may like <a href="http://www.johndcook.com/blog/r_language_for_programmers/" class="uri">http://www.johndcook.com/blog/r_language_for_programmers/</a> which summarizes some differences between R and other languages.</p>
+<div id="optional-software-macterm" class="section level3">
+<h3>Optional Software: MacTerm</h3>
+<p><a href="http://www.macterm.net/features/" class="uri">http://www.macterm.net/features/</a></p>
+<p>discuss divvy</p>
+<hr />
+</div>
+<div id="references-and-miscellaneous-info" class="section level3">
+<h3><a name="refs">References and Miscellaneous Info</a></h3>
+<p>Footnotes &amp; Links to info on the page: * **<a href="http://stat.ethz.ch/R-manual/R-devel/library/base/html/Startup.html**" class="uri">http://stat.ethz.ch/R-manual/R-devel/library/base/html/Startup.html**</a> * <a href="https://support.rstudio.com/hc/en-us/articles/206827897-Secure-Package-Downloads-for-R" class="uri">https://support.rstudio.com/hc/en-us/articles/206827897-Secure-Package-Downloads-for-R</a> * <a href="http://www.r-bloggers.com/fun-with-rprofile-and-customizing-r-startup/" class="uri">http://www.r-bloggers.com/fun-with-rprofile-and-customizing-r-startup/</a> * <a href="http://www.gettinggeneticsdone.com/2013/07/customize-rprofile.html" class="uri">http://www.gettinggeneticsdone.com/2013/07/customize-rprofile.html</a> * <a href="http://inundata.org/2011/09/29/customizing-your-rprofile/" class="uri">http://inundata.org/2011/09/29/customizing-your-rprofile/</a> * <a href="http://stackoverflow.com/questions/3485456/useful-little-functions-in-r" class="uri">http://stackoverflow.com/questions/3485456/useful-little-functions-in-r</a> * <a href="http://stackoverflow.com/questions/25579868/how-do-i-add-footnotes-to-github-flavoured-markdown" class="uri">http://stackoverflow.com/questions/25579868/how-do-i-add-footnotes-to-github-flavoured-markdown</a> * <a href="http://apple.stackexchange.com/questions/179148/installed-app-with-brew-cask-over-existing-install-did-it-remove-the-old-app-fi" class="uri">http://apple.stackexchange.com/questions/179148/installed-app-with-brew-cask-over-existing-install-did-it-remove-the-old-app-fi</a> * <a href="http://stackoverflow.com/questions/29017001/r-nightmare-yosemite-r-rstudio-and-homebrew" class="uri">http://stackoverflow.com/questions/29017001/r-nightmare-yosemite-r-rstudio-and-homebrew</a> * <a href="http://zmjones.com/mac-setup/" class="uri">http://zmjones.com/mac-setup/</a> (Very interesting post focusing on command line tools and Emacs) * <a href="http://emacs.stackexchange.com/questions/271/what-is-the-difference-between-aquamacs-and-other-mac-versions-of-emacs" class="uri">http://emacs.stackexchange.com/questions/271/what-is-the-difference-between-aquamacs-and-other-mac-versions-of-emacs</a> * <a href="https://discussions.agilebits.com/discussion/11563" class="uri">https://discussions.agilebits.com/discussion/11563</a> * <a href="http://g14n.info/2013/10/using-git-and-svn-together/#conclusion" class="uri">http://g14n.info/2013/10/using-git-and-svn-together/#conclusion</a></p>
+<p>External Cites:</p>
+<ul>
+<li><a name="TC1"><sup>TC1</sup></a>: Tanaka, Brian, <a href="https://www.takecontrolbooks.com/leopard-permissions"><em>Take Control of Permissions in Snow Leopard</em></a>, V1.0, pp61-62</li>
+</ul>
+<p>Select R package repository: <a href="https://stat.ethz.ch/R-manual/R-devel/library/utils/html/setRepositories.html" class="uri">https://stat.ethz.ch/R-manual/R-devel/library/utils/html/setRepositories.html</a></p>
+</div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69499253-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>
