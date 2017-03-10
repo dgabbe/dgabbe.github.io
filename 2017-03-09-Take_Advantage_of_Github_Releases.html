@@ -11,7 +11,7 @@
 
 
 
-<title>How One Comment Transformed My Approach to Coding R</title>
+<title>Take Advantage of Github Releases for R Packages</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -237,39 +237,39 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">How One Comment Transformed My Approach to Coding R</h1>
-<h4 class="date"><em>9/15/2016</em></h4>
+<h1 class="title toc-ignore">Take Advantage of Github Releases for R Packages</h1>
+<h4 class="date"><em>3/10/2017</em></h4>
 
 </div>
 
 
-<!-- ## How one comment transformed my approach to coding R -->
-<p>I had been programming R for about 9 months when I asked a computational biologist friend if he could review my first R project before I released it. His reply both surprised and fascinated me. It was simply that if all my functions and their side effects were not documented, he would pass on the code. He added there is so much R code out there with no documentation that no one has enough time to determine what is useful. Great feedback, time to implement it.</p>
-<p>R’s <a href="https://cran.r-project.org/web/packages/roxygen2/">Roxygen2</a> package will generate documentation from annotated source code. However, this only works when you are writing a package. No matter how hard I tried, I could not get the functions to work on a collection of R files in a project directory. Transforming <a href="https://github.com/dgabbe/dgutils">my project</a> into an R package would be a good learning experience.</p>
-<p>Here’s the list of changes I made:</p>
+<p>After learning how to <a href="http://blog.frame38.com/2016-09-15-How_One_Comment_Changed.html">create packages</a>, I found myself wrestling with simaltaneously maintaining development and stable releases.</p>
+<p>Git creates a SHA hash for each commit. Here’s an example <code>d2c488a892a15af4b5e488bd5ac085cb666eaf80</code>. Not exactly human friendly and more over, it’s impossible to figure out the chronological order of the commits. However, Git has a <a href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">tag feature</a> which can be used to create a human friendly name for the commit.</p>
+<p>GitHub’s <a href="https://help.github.com/articles/about-releases/">Release feature</a> builds upon Git’s tag feature to easily provide software to others. The steps are:</p>
 <ol style="list-style-type: decimal">
-<li>Renamed project directory to conform to R’s <a href="http://r-pkgs.had.co.nz/package.html">package naming conventions</a>.</li>
-<li>Moved .R files into a subdirectory named <em>R</em>.</li>
-<li>Installed the devtools package, <code>install.packages(&quot;devtools&quot;)</code>.</li>
-<li>Executed <code>devtools::create(&quot;mypackage&quot;)</code> to generate a bare bones <code>DESCRIPTION</code> file.</li>
-<li>Coverted R comments to Roxygen comments. You do have comments, right?</li>
-<li>Built my package in RStudio, <em>Build-&gt;Build and Reload</em>. I changed <em>Build-&gt;Configure Build Tools…</em> to generate documentation on <em>Build and Reload</em>.</li>
+<li>Create a new Release of your project - <code>https://github.com/&lt;username&gt;/&lt;repo_name&gt;/releases/new</code></li>
+<li>Enter your package’s DESCRIPTION file’s version field for your Tag name and select the branch and commit for your code.</li>
+<li>Enter the Description.</li>
+<li>Publish the Release.</li>
 </ol>
-<p>The fifth step was really the work I needed to complete. I used RStudio’s <em>Code-&gt;Insert Roxygen Skelton</em> to create the template for each function. Then moved any relevant comments into the proper section and changed R’s comment delimiter, <code>#</code>, to Roxygen’s <code>#'</code>. I created a package level documentation page by creating an R file in the form <code>myPackage-package.R</code>. It’s a good spot to document any package <code>options</code>. I was psyched I could now split my code into multiple files for better organization.</p>
-<p>The Roxygen comments also include <code>@import</code> and <code>@export</code> directives so the build process will generate the <code>NAMESPACE</code> file. Any <code>library()</code> or <code>require()</code> calls must be converted to <code>@import</code> or <code>@importFrom</code> directives. Any function available outside the package needs the <code>@export</code> directive.</p>
-<p>The next benefit is how easy it becomes to share your code. <code>devtools::install_github()</code> will install your package from Github and <code>devtools::install_git()</code> will install it from a git repo. That’s all there is to it.</p>
-<p>The last benefit is a more explicit coding style, a la Python, which increases the compatibility of your R analysis scripts. A Python file typically starts with a section of <code>import</code> statements to gain access to code in other modules. R’s analog is the <code>library()</code> function. If you adopt this philosophy towards writing R code, it eliminates the need to set the <code>defaultPackages</code> option in <code>.Rprofile</code> or <code>Rprofile.site</code>, and makes your code simple to migrate to production.</p>
-<p>This project exceeded my expectations. My initial purpose was simply to produce documentation from annoated source code, but it quicky became clear that writing a package had practical benefits beyond documentation. The basics are easy to learn and RStudio’s features make it easy to code. I’m aleady working on my second package.</p>
-<!-- [![Creative Commons License](https://i.creativecommons.org/l/by-nd/4.0/80x15.png)](https://creativecommons.org/licenses/by-nd/4.0/) [David Gabbé](https://github.com/dgabbe) -->
-<div id="helpful-links" class="section level4">
-<h4>Helpful links:</h4>
+<p>Almost done!</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Now create a tag named <code>Current</code> and associate it with the same branch and commit as you did above. Or if there is already a Current tag, edit it so it points to the new version of the code.</li>
+</ol>
+<p>The Current tag will automatically install the current version of your package without needing to know an explicit version number with this R statement:</p>
+<pre class="r"><code>devtools::install_github(&quot;&lt;username&gt;/&lt;repo_name&gt;@Current&quot;)</code></pre>
+<p>For one person projects, especially those done on 2 computers, changes can be checked on the master branch without impacting others using your package. What?! You have unreleased code on the master branch! There are small changes that are not worth releasing nor maintaining on a seperate branch. However, for new features, I create a branch and a new R file which allows for easy merges.</p>
+<p>But wait, there’s one more file, <code>README.md</code>. I use the README file to note changes and document the details in the R files so pkgdown will generate an up-to-date website. The releases are listed in reverse chronological order. Before I commit the final changes, I decide on the tag name and edit the README to reflect the URL. Here’s an example from my rprofile.site project</p>
+<pre class="r"><code>#### [10-Jan-2017](https://github.com/dgabbe/rprofile.site/tree/2017-01-10) Changes
+* `.py` files renamed to `.command` so scripts can be doubled clicked or run from command line.</code></pre>
+<p>Just remember the URL will be broken until the tag is created in GitHub.</p>
+<div id="helpful-links" class="section level3">
+<h3><a name="helpful_links"></a>Helpful Links</h3>
 <ul>
-<li><a href="https://www.rstudio.com/products/rpackages/devtools/">RStudio devtools</a></li>
-<li>Hadley Wickham’s <a href="http://r-pkgs.had.co.nz/description.html">R packages</a> and direct link for <a href="https://r-pkgs.had.co.nz/man.html#roxygen-comments">Object Documentation</a></li>
-<li><a href="https://cran.r-project.org/doc/manuals/R-exts.html#Rd-format">Complete listing</a> of all Rd directives</li>
-<li>Karl Broman’s <a href="http://kbroman.org/pkg_primer/">R Package Primer</a></li>
-<li>Hillary Parker’s <a href="https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/">Writing an R Package From Scratch</a></li>
-<li>Fong Chung Chan’s <a href="https://tinyheero.github.io/jekyll/update/2015/07/26/making-your-first-R-package.html">Making Your First R Package</a></li>
+<li><a href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">Git Basics - Tagging</a></li>
+<li><a href="https://help.github.com/articles/about-releases/">GitHub Releases</a></li>
+<li><a href="https://datasift.github.io/gitflow/IntroducingGitFlow.html">GitFlow</a></li>
+<li><a href="http://r-pkgs.had.co.nz/git.html">Hadley’s R packages - Git and GitHub</a></li>
 </ul>
 <!-- See [Rprofile.site](https://github.com/dgabbe/rprofile.site#rprofilesite), [dgutils](https://github.com/dgabbe/dgutils#dgutils), and [wdprompt](https://github.com/dgabbe/wdprompt#wdprompt) for my customizations. -->
 <p><a href="https://creativecommons.org/licenses/by-nd/4.0/"><img src="https://i.creativecommons.org/l/by-nd/4.0/80x15.png" alt="Creative Commons License" /></a> <a href="https://github.com/dgabbe">David Gabbé</a></p>
