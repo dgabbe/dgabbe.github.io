@@ -247,13 +247,14 @@ $(document).ready(function () {
 <p>Git creates a SHA hash for each commit. Here’s an example <code>d2c488a892a15af4b5e488bd5ac085cb666eaf80</code>. Not exactly human friendly and more over, it’s impossible to figure out the chronological order of the commits. However, Git has a <a href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">tag feature</a> which can be used to create a human friendly name for the commit.</p>
 <p>GitHub’s <a href="https://help.github.com/articles/about-releases/">Release feature</a> builds upon Git’s tag feature to easily provide software to others. The steps are:</p>
 <ol style="list-style-type: decimal">
-<li>Create a new Release of your project - <code>https://github.com/&lt;username&gt;/&lt;repo_name&gt;/releases/new</code></li>
-<li>Enter your package’s DESCRIPTION file’s version field for your Tag name and select the branch and commit for your code.</li>
-<li>Enter the Description.</li>
+<li>Create a new Release of your project - <code>https://github.com/&lt;username&gt;/&lt;repo_name&gt;/releases/new</code><br><br> <img src="blog_images/github_new_release.png" alt="GitHub New Release" /></li>
+<li>Enter your package’s DESCRIPTION file’s version field for the <em>Tag version</em> box and select the branch and commit for your code.</li>
+<li>Enter the <em>Release title</em>.</li>
+<li>Enter a short description of the Release.</li>
 <li>Publish the Release.</li>
 </ol>
 <p>Almost done!</p>
-<ol start="5" style="list-style-type: decimal">
+<ol start="6" style="list-style-type: decimal">
 <li>Now create a tag named <code>Current</code> and associate it with the same branch and commit as you did above. Or if there is already a Current tag, edit it so it points to the new version of the code.</li>
 </ol>
 <p>The Current tag will automatically install the current version of your package without needing to know an explicit version number with this R statement:</p>
