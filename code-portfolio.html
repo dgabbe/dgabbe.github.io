@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -20,8 +20,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -30,10 +30,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -264,11 +266,11 @@ $(document).ready(function () {
 <div id="shiny-apps" class="section level3">
 <h3>Shiny Apps</h3>
 <dl>
-<dt><a href="https://dgabbe.shinyapps.io/tire_pressure_shiny">Tire Pressure</a></dt>
+<dt><a href="http://btp.frame38.com">Bike Tire Pressure</a></dt>
 <dd>This app calculates optimal bicycle tire inflation pressures. If you race or ride long distance events, this simple change could make the difference between a podium spot or missing the time cutoff.
 </dd>
 </dl>
-<p>This version is a proof on concept focusing on reusing the analysis functions unchanged in the Shiny app and displaying the tire widths by their inflations curves with <a href="http://directlabels.r-forge.r-project.org/">directlabels</a>.</p>
+<p>This is the first of three releases planned. Stay tuned for more cool features.</p>
 </div>
 
 <script>
