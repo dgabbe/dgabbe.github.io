@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -20,8 +20,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -30,10 +30,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -187,6 +189,9 @@ $(document).ready(function () {
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Recent Posts</li>
     <li>
+      <a href="2017-11-16-Batch_OCR_PDF_Files.html">Batch OCR PDF Files on a Mac</a>
+    </li>
+    <li>
       <a href="2017-03-09-Take_Advantage_of_Github_Releases.html">Take Advantage of Github Releases</a>
     </li>
     <li>
@@ -243,8 +248,8 @@ $(document).ready(function () {
 </div>
 
 
-<p>After learning how to <a href="http://blog.frame38.com/2016-09-15-How_One_Comment_Changed.html">create packages</a>, I found myself wrestling with simaltaneously maintaining development and stable releases.</p>
-<p>Git creates a SHA hash for each commit. Here’s an example <code>d2c488a892a15af4b5e488bd5ac085cb666eaf80</code>. Not exactly human friendly and more over, it’s impossible to figure out the chronological order of the commits. However, Git has a <a href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">tag feature</a> which can be used to create a human friendly name for the commit.</p>
+<p>After learning how to <a href="http://blog.frame38.com/2016-09-15-How_One_Comment_Changed.html">create packages</a>, I found myself wrestling with simultaneously maintaining development and stable releases.</p>
+<p>Git creates a SHA hash for each commit. Here’s an example <code>d2c488a892a15af4b5e488bd5ac085cb666eaf80</code>. Not exactly user-friendly and moreover, it’s impossible to figure out the chronological order of the commits. However, Git has a <a href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">tag feature</a> which can be used to create a user-friendly name for the commit.</p>
 <p>GitHub’s <a href="https://help.github.com/articles/about-releases/">Release feature</a> builds upon Git’s tag feature to easily provide software to others. The steps are:</p>
 <ol style="list-style-type: decimal">
 <li>Create a new Release of your project - <code>https://github.com/&lt;username&gt;/&lt;repo_name&gt;/releases/new</code><br><br> <img src="blog_images/github_new_release.png" alt="GitHub New Release" /></li>
@@ -259,8 +264,8 @@ $(document).ready(function () {
 </ol>
 <p>The Current tag will automatically install the current version of your package without needing to know an explicit version number with this R statement:</p>
 <pre class="r"><code>devtools::install_github(&quot;&lt;username&gt;/&lt;repo_name&gt;@Current&quot;)</code></pre>
-<p>For one person projects, especially those done on 2 computers, changes can be checked on the master branch without impacting others using your package. What?! You have unreleased code on the master branch! There are small changes that are not worth releasing nor maintaining on a seperate branch. However, for new features, I create a branch and a new R file which allows for easy merges.</p>
-<p>But wait, there’s one more file, <code>README.md</code>. I use the README file to note changes and document the details in the R files so pkgdown will generate an up-to-date website. The releases are listed in reverse chronological order. Before I commit the final changes, I decide on the tag name and edit the README to reflect the URL. Here’s an example from my rprofile.site project</p>
+<p>For one-person projects, especially those done on 2 computers, changes can be checked on the master branch without impacting others using your package. What?! You have unreleased code on the master branch! There are small changes that are not worth releasing nor maintaining on a separate branch. However, for new features, I create a branch and a new R file which allows for easy merges.</p>
+<p>But wait, there’s one more file, <code>README.md</code>. I use the README file to note changes and document the details in the R files, so <a href="https://github.com/r-lib/pkgdown#pkgdown">pkgdown</a> will generate an up-to-date website. The releases are listed in reverse chronological order. Before I commit the final changes, I decide on the tag name and edit the README to reflect the URL. Here’s an example from my rprofile.site project</p>
 <pre class="r"><code>#### [10-Jan-2017](https://github.com/dgabbe/rprofile.site/tree/2017-01-10) Changes
 * `.py` files renamed to `.command` so scripts can be doubled clicked or run from command line.</code></pre>
 <p>Just remember the URL will be broken until the tag is created in GitHub.</p>
@@ -274,7 +279,7 @@ $(document).ready(function () {
 </ul>
 <!-- See [Rprofile.site](https://github.com/dgabbe/rprofile.site#rprofilesite), [dgutils](https://github.com/dgabbe/dgutils#dgutils), and [wdprompt](https://github.com/dgabbe/wdprompt#wdprompt) for my customizations. -->
 <p><a href="https://creativecommons.org/licenses/by-nd/4.0/"><img src="https://i.creativecommons.org/l/by-nd/4.0/80x15.png" alt="Creative Commons License" /></a> <a href="https://github.com/dgabbe">David Gabbé</a></p>
-<p>Generated on: 10-Mar-2017</p>
+<p>Generated on: 20-Mar-2018</p>
 </div>
 
 <script>
