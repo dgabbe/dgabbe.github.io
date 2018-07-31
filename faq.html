@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -20,8 +20,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -30,10 +30,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -87,6 +89,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -244,20 +249,17 @@ $(document).ready(function () {
 
 <p>Wow, you really did have more questions.</p>
 <dl>
-<dt>What are you really up to?</dt>
-<dd>Short answer is I’m having a bakeoff between Rmarkdown and Jekyll for building a static HTML site.
-</dd>
 <dt>Didn’t you used to have a site with photographs?</dt>
-<dd>That site is still <a href="http://www.frame38.com">around</a>.
+<dd>The remnants are <a href="http://blog.frame38.com/photos.html">around</a>.
 </dd>
-<dt>Why no HTTPS connection?</dt>
-<dd>Because Github Pages does not offer an HTTPS connection if you use a custom domain. I figure this will get solved when browsers force secure connections or I can migrate to Gitlab or Amazon S3.
+<dt>How is this site built?</dt>
+<dd>This static site is generated with <a href="https://rmarkdown.rstudio.com/rmarkdown_websites.html">Rmarkdown</a> using a manual process. That was before <a href="https://github.com/rstudio/blogdown#blogdown">blogdown</a> was released. Yup, there are plans to migrate to <code>blogdown</code>.
 </dd>
-<dt>Jekyll vs Rmarkdown:</dt>
-<dd>Coming soon…
+<dt>Why not use LinkedIn?</dt>
+<dd>LinkedIn has 2 disadvantages. The first is HTML code can’t be included in articles. Plus there’s no way to generate anywhere near as nicely formatted R code or even generate sections with R code. The second is I want to own the source of my posts and keep my site under revision control.
 </dd>
-<dt>Github vs Amazon S3 hosting:</dt>
-<dd>Coming soon…
+<dt>Why use Github as your web host?</dt>
+<dd>Github hosts static sites for free and has a huge benefit. I can publish my package documentation automatically using <a href="https://github.com/hadley/pkgdown#pkgdown"><code>pkgdown</code></a> directly to this website by setting <em>Github Pages</em> to <code>Source - master branch/docs folder</code> under project settings. However the blog portion is kept in a private repo.
 </dd>
 </dl>
 

@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -20,8 +20,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -30,10 +30,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -87,6 +89,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -243,11 +248,12 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
+<li><a href="#outdated-information">Outdated Information</a><ul>
 <li><a href="#system-differences">System Differences</a></li>
 <li><a href="#desired-development-environment">Desired Development Environment</a></li>
-<li><a href="#customizing-your-r-environment"><a name="customize">Customizing Your R Environment</a></a></li>
+<li><a href="#customizing-your-r-environment">Customizing Your R Environment</a></li>
 <li><a href="#summary">Summary</a></li>
-<li><a href="#desired-configuration"><a name"desiredConfig">Desired Configuration</a></a></li>
+<li><a href="#desired-configuration">Desired Configuration</a></li>
 <li><a href="#os-x-is-not-linux">OS X Is Not Linux</a></li>
 <li><a href="#check-your-path">Check your path</a></li>
 <li><a href="#install-xquartz">Install XQuartz</a></li>
@@ -255,13 +261,17 @@ $(document).ready(function () {
 <li><a href="#creating-github-and-gitlab-accounts-and-git-config-values">Creating github and gitlab accounts and git config values</a></li>
 <li><a href="#ssh_askpass-missing-script-error">ssh_askpass Missing Script Error</a></li>
 <li><a href="#install-mactex">Install MacTex</a></li>
+</ul></li>
 <li><a href="#r-programing">R Programing</a><ul>
 <li><a href="#optional-software-macterm">Optional Software: MacTerm</a></li>
-<li><a href="#references-and-miscellaneous-info"><a name="refs">References and Miscellaneous Info</a></a></li>
+<li><a href="#references-and-miscellaneous-info">References and Miscellaneous Info</a></li>
 </ul></li>
 </ul>
 </div>
 
+<div id="outdated-information" class="section level2">
+<h2>Outdated Information</h2>
+<p>This section unfortunately has not been maintained due to a lack of time. My general comment is for MacOS, do things the Apple way and you will have no problems. Apple’s been quite clever in how they control permissions, but it’s hard to find the details.</p>
 <p>Notes on turning my Mac into a serious developer’s machine. This odyssey started with OS X 10.10.4 and continues today covering OS X 10.11.6.</p>
 <div id="system-differences" class="section level3">
 <h3>System Differences</h3>
@@ -277,7 +287,7 @@ $(document).ready(function () {
 <p><em>pick up revisions here… The rest is a work in progress.</em></p>
 </div>
 <div id="customizing-your-r-environment" class="section level3">
-<h3><a name="customize">Customizing Your R Environment</a></h3>
+<h3>Customizing Your R Environment</h3>
 <p>My best practice is to keep config files under source control and have an easy process to keep each Mac up-to-date with any config file changes. I do this by creating symlinks from R’s file names to the actual files in my git working directory.</p>
 <p>First, if you have not installed Apple’s XCode tools, or have done a major OS X upgrade:</p>
 <pre class="sh"><code>xcode-select --install</code></pre>
@@ -293,7 +303,7 @@ $(document).ready(function () {
 <p>Since my Rproject.site wasn’t being found either, it was time to figure things with a more structured approach.</p>
 </div>
 <div id="desired-configuration" class="section level3">
-<h3><a name"desiredConfig">Desired Configuration</a></h3>
+<h3>Desired Configuration</h3>
 <div id="tools" class="section level4">
 <h4>Tools</h4>
 <ul>
@@ -419,6 +429,7 @@ export LC_MESSAGES=&quot;en_US.UTF-8&quot;
 export LC_CTYPE=&quot;en_US.UTF-8&quot;
 export LC_COLLATE=&quot;en_US.UTF-8&quot;</code></pre>
 </div>
+</div>
 <div id="r-programing" class="section level2">
 <h2>R Programing</h2>
 <p>You made it this far - great! I’ve been using <a href="http://r-pkgs.had.co.nz/style.html">Hadley’s style guide</a> for my code. It’s a simple guide well worth the time investment. Experienced programmers may like <a href="http://www.johndcook.com/blog/r_language_for_programmers/" class="uri">http://www.johndcook.com/blog/r_language_for_programmers/</a> which summarizes some differences between R and other languages.</p>
@@ -429,8 +440,23 @@ export LC_COLLATE=&quot;en_US.UTF-8&quot;</code></pre>
 <hr />
 </div>
 <div id="references-and-miscellaneous-info" class="section level3">
-<h3><a name="refs">References and Miscellaneous Info</a></h3>
-<p>Footnotes &amp; Links to info on the page: * **<a href="http://stat.ethz.ch/R-manual/R-devel/library/base/html/Startup.html**" class="uri">http://stat.ethz.ch/R-manual/R-devel/library/base/html/Startup.html**</a> * <a href="https://support.rstudio.com/hc/en-us/articles/206827897-Secure-Package-Downloads-for-R" class="uri">https://support.rstudio.com/hc/en-us/articles/206827897-Secure-Package-Downloads-for-R</a> * <a href="http://www.r-bloggers.com/fun-with-rprofile-and-customizing-r-startup/" class="uri">http://www.r-bloggers.com/fun-with-rprofile-and-customizing-r-startup/</a> * <a href="http://www.gettinggeneticsdone.com/2013/07/customize-rprofile.html" class="uri">http://www.gettinggeneticsdone.com/2013/07/customize-rprofile.html</a> * <a href="http://inundata.org/2011/09/29/customizing-your-rprofile/" class="uri">http://inundata.org/2011/09/29/customizing-your-rprofile/</a> * <a href="http://stackoverflow.com/questions/3485456/useful-little-functions-in-r" class="uri">http://stackoverflow.com/questions/3485456/useful-little-functions-in-r</a> * <a href="http://stackoverflow.com/questions/25579868/how-do-i-add-footnotes-to-github-flavoured-markdown" class="uri">http://stackoverflow.com/questions/25579868/how-do-i-add-footnotes-to-github-flavoured-markdown</a> * <a href="http://apple.stackexchange.com/questions/179148/installed-app-with-brew-cask-over-existing-install-did-it-remove-the-old-app-fi" class="uri">http://apple.stackexchange.com/questions/179148/installed-app-with-brew-cask-over-existing-install-did-it-remove-the-old-app-fi</a> * <a href="http://stackoverflow.com/questions/29017001/r-nightmare-yosemite-r-rstudio-and-homebrew" class="uri">http://stackoverflow.com/questions/29017001/r-nightmare-yosemite-r-rstudio-and-homebrew</a> * <a href="http://zmjones.com/mac-setup/" class="uri">http://zmjones.com/mac-setup/</a> (Very interesting post focusing on command line tools and Emacs) * <a href="http://emacs.stackexchange.com/questions/271/what-is-the-difference-between-aquamacs-and-other-mac-versions-of-emacs" class="uri">http://emacs.stackexchange.com/questions/271/what-is-the-difference-between-aquamacs-and-other-mac-versions-of-emacs</a> * <a href="https://discussions.agilebits.com/discussion/11563" class="uri">https://discussions.agilebits.com/discussion/11563</a> * <a href="http://g14n.info/2013/10/using-git-and-svn-together/#conclusion" class="uri">http://g14n.info/2013/10/using-git-and-svn-together/#conclusion</a></p>
+<h3>References and Miscellaneous Info</h3>
+<p>Footnotes &amp; Links to info on the page:</p>
+<ul>
+<li><a href="http://stat.ethz.ch/R-manual/R-devel/library/base/html/Startup.html" class="uri">http://stat.ethz.ch/R-manual/R-devel/library/base/html/Startup.html</a></li>
+<li><a href="https://support.rstudio.com/hc/en-us/articles/206827897-Secure-Package-Downloads-for-R" class="uri">https://support.rstudio.com/hc/en-us/articles/206827897-Secure-Package-Downloads-for-R</a></li>
+<li><a href="http://www.r-bloggers.com/fun-with-rprofile-and-customizing-r-startup/" class="uri">http://www.r-bloggers.com/fun-with-rprofile-and-customizing-r-startup/</a></li>
+<li><a href="http://www.gettinggeneticsdone.com/2013/07/customize-rprofile.html" class="uri">http://www.gettinggeneticsdone.com/2013/07/customize-rprofile.html</a></li>
+<li><a href="http://inundata.org/2011/09/29/customizing-your-rprofile/" class="uri">http://inundata.org/2011/09/29/customizing-your-rprofile/</a></li>
+<li><a href="http://stackoverflow.com/questions/3485456/useful-little-functions-in-r" class="uri">http://stackoverflow.com/questions/3485456/useful-little-functions-in-r</a></li>
+<li><a href="http://stackoverflow.com/questions/25579868/how-do-i-add-footnotes-to-github-flavoured-markdown" class="uri">http://stackoverflow.com/questions/25579868/how-do-i-add-footnotes-to-github-flavoured-markdown</a></li>
+<li><a href="http://apple.stackexchange.com/questions/179148/installed-app-with-brew-cask-over-existing-install-did-it-remove-the-old-app-fi" class="uri">http://apple.stackexchange.com/questions/179148/installed-app-with-brew-cask-over-existing-install-did-it-remove-the-old-app-fi</a></li>
+<li><a href="http://stackoverflow.com/questions/29017001/r-nightmare-yosemite-r-rstudio-and-homebrew" class="uri">http://stackoverflow.com/questions/29017001/r-nightmare-yosemite-r-rstudio-and-homebrew</a></li>
+<li><a href="http://zmjones.com/mac-setup/" class="uri">http://zmjones.com/mac-setup/</a> (Very interesting post focusing on command line tools and Emacs)</li>
+<li><a href="http://emacs.stackexchange.com/questions/271/what-is-the-difference-between-aquamacs-and-other-mac-versions-of-emacs" class="uri">http://emacs.stackexchange.com/questions/271/what-is-the-difference-between-aquamacs-and-other-mac-versions-of-emacs</a></li>
+<li><a href="https://discussions.agilebits.com/discussion/11563" class="uri">https://discussions.agilebits.com/discussion/11563</a></li>
+<li><a href="http://g14n.info/2013/10/using-git-and-svn-together/#conclusion" class="uri">http://g14n.info/2013/10/using-git-and-svn-together/#conclusion</a></li>
+</ul>
 <p>External Cites:</p>
 <ul>
 <li><a name="TC1"><sup>TC1</sup></a>: Tanaka, Brian, <a href="https://www.takecontrolbooks.com/leopard-permissions"><em>Take Control of Permissions in Snow Leopard</em></a>, V1.0, pp61-62</li>

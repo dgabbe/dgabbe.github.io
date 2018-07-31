@@ -91,6 +91,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -190,9 +193,6 @@ $(document).ready(function () {
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Recent Posts</li>
     <li>
-      <a href="2017-11-16-Batch_OCR_PDF_Files.html">Batch OCR PDF Files on a Mac</a>
-    </li>
-    <li>
       <a href="2017-03-09-Take_Advantage_of_Github_Releases.html">Take Advantage of Github Releases</a>
     </li>
     <li>
@@ -249,17 +249,13 @@ $(document).ready(function () {
 </div>
 
 
-<p>I’m not a blogger per se, but I decided to give back to the community as other people’s blogs were and are tremendously helpful towards enabling my progress. And yes, my posts tend to be around the R ecosystem.</p>
-<p>This site is an experiment building a static site with <a href="http://rmarkdown.rstudio.com/rmarkdown_websites.html">Rmarkdown</a>.</p>
-<div id="why-rmarkdown-for-a-blog" class="section level3">
-<h3>Why Rmarkdown For a Blog?</h3>
-<p>My initial plan was to post articles on LinkedIn, but those articles may not include HTML code and there’s no way to generate anywhere near as nicely formatted R code or even generate sections with R code.</p>
-<p>WordPress seems like overkill for my needs and I didn’t want the sysadmin hassles.</p>
-<p>Github will host static sites for free and has a huge benefit. I can publish my package documentation automatically using <a href="https://github.com/hadley/pkgdown#pkgdown"><code>pkgdown</code></a> directly to this website by setting <em>Github Pages</em> to <code>Source - master branch/docs folder</code> under project settings.</p>
+<div id="why-this-site" class="section level3">
+<h3>Why this site?</h3>
+<p>Other people’s blogs were and are tremendously helpful towards enabling my progress. I’ve written up some experiences that I haven’t found on the web in case others are helped. My posts tend to be around the R ecosystem, bicycling, and maker related activities.</p>
 </div>
 <div id="why-is-a-package-website-a-big-deal" class="section level3">
 <h3>Why is a Package Website a Big Deal?</h3>
-<p>An R package is only useful if people use it. People will only use it if they can <strong>easily</strong> check it out, but developers only want to write the documentation once. As part of building your package, R help files are generated from your Roxygen comments. And finally, <code>pkgdown</code> translates the R help files into a website. Now you can browse a website to learn the details of a package. Awesome!</p>
+<p>An R package is only useful if people use it. People will only use it if they can <strong>easily</strong> check it out, but developers only want to write the documentation once. As part of building your package, R help files are generated from your Roxygen comments. And finally, <code>pkgdown</code> translates the R help files into a website, that Github will painlessly host for you. Now you can browse a website to learn the details of a package. Awesome!</p>
 </div>
 <div id="more-questions" class="section level3">
 <h3>More Questions?</h3>
